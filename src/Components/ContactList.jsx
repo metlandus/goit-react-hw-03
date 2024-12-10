@@ -4,7 +4,7 @@ import Contact from "./Contact"
 const ContactList = ({ contacts }) => {
     return (
         <>
-            <Contact contacts={contacts} />
+            {contacts.map((contact) => (<Contact contact={contact} key={contact.id} />))}
         </>
     )
 }
