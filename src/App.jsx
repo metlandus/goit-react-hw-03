@@ -10,6 +10,11 @@ function App() {
 
     const [searchedContact, setSearchedContact] = useState("")
     const [contact, setContact] = useState(contactsData);
+
+    const addContact = (newContact) => {
+        setContact([...contact, newContact]);
+    };
+
     function handleChange(e) {
         const searchValue = e.target.value.toLowerCase();
         setSearchedContact(searchValue);
@@ -27,18 +32,7 @@ function App() {
     return (
         <>
             <h1>Phonebook</h1>
-            <Formik
-                initialValues={{
-                    name: '',
-                    phoneNumber: '',
-                }}
-                onSubmit={async (values) => {
-                    await new Promise((r) => setTimeout(r, 500));
-                    alert(JSON.stringify(values, null, 2));
-                }}
-            >
-            <ContactForm />
-            </Formik>
+            <ContactForm addContact={addContact} />
             <SearchBox onChange={handleChange} />
             <ContactList contacts={contact} />
         </>
