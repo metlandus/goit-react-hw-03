@@ -15,6 +15,10 @@ function App() {
         setContact([...contact, newContact]);
     };
 
+    const deleteContact = (id) => {
+        setContact(contact.filter((c) => c.id !== id));
+    };
+
     function handleChange(e) {
         const searchValue = e.target.value.toLowerCase();
         setSearchedContact(searchValue);
@@ -34,7 +38,7 @@ function App() {
             <h1>Phonebook</h1>
             <ContactForm addContact={addContact} />
             <SearchBox onChange={handleChange} />
-            <ContactList contacts={contact} />
+            <ContactList contacts={contact} deleteContact={deleteContact} />
         </>
     )
 }
