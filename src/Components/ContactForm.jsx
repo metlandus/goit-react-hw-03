@@ -1,7 +1,6 @@
 import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid'
-import contactsData from "../data.json"
 import * as yup from 'yup';
 
 const validation = yup.object().shape({
@@ -11,10 +10,17 @@ const validation = yup.object().shape({
 
 const ContactForm = ({ addContact }) => {
     const handleSubmit = (values, { resetForm }) => {
+        let formattedNumber = values.number;
+        if (formattedNumber.length > 3) {
+            formattedNumber = formattedNumber.slice(0, 3) + '-' + formattedNumber.slice(3);
+        }
+        if (formattedNumber.length > 6) {
+            formattedNumber = formattedNumber.slice(0, 6) + '-' + formattedNumber.slice(6);
+        }
         const newContact = {
             id: nanoid(4),
             name: values.name,
-            number: values.number,
+            number: formattedNumber,
         };
         addContact(newContact);
         resetForm();

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Formik, Field, Form } from 'formik';
 
 import ContactForm from "./Components/ContactForm"
@@ -7,9 +7,12 @@ import ContactList from "./Components/ContactList"
 import contactsData from "./data.json"
 
 function App() {
-
     const [searchedContact, setSearchedContact] = useState("")
-    const [contact, setContact] = useState(contactsData);
+    const [contact, setContact] = useState(JSON.parse(localStorage.getItem("contacts")) || contactsData);
+
+    useEffect(() => {
+        localStorage.setItem("contacts", JSON.stringify(contact), contact);
+    })
 
     const addContact = (newContact) => {
         setContact([...contact, newContact]);
